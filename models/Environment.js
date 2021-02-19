@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
   Environment.associate = function (models) {
 
       Environment.belongsToMany(models.Tile, {
-          onDelete: "SET NULL"
+        onDelete: "SET NULL"
       });
 
   };
