@@ -1,5 +1,4 @@
 const express = require("express");
-const session = require("express-session");
 const compression = require("compression")
 
 const db = require("./models");
@@ -15,16 +14,7 @@ app.use(express.json({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 require('dotenv').config()
 
-// app.use(session({
-//   secret: process.env.USER_SECRET,
-//   // TODO replace with environment variable for production
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     maxAge: 1000 * 60 * 60 * 2
-//     //TODO add secure cookie for production
-//   }
-// }))
+// USER AUTHENTICATION GOES HERE
 
 // const routes = require("/");
 
