@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt")
 
-module.exports = function (sequlize, DataTypes) {
-    const User = squelize.define("User", {
+module.exports = function (sequelize, DataTypes) {
+    const User = sequelize.define("User", {
         userName: {
             type: DataTypes.STRING,
             unique: true,
@@ -13,7 +13,7 @@ module.exports = function (sequlize, DataTypes) {
             validate: {
                 len: [8]
             }
-        }
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false

@@ -6,9 +6,9 @@ module.exports = function (sequelize, DataTypes) {
 
   Environment.associate = function (models) {
 
-      Environment.belongsToMany(models.Tile, {
-        onDelete: "SET NULL"
-      });
+      Environment.belongsToMany(models.Map, {through: 'MapEnvironment'});
+
+      Environment.belongsToMany(models.Tile, {through: 'TileEnvironment'});
 
   };
 

@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  let MapTile = sequelize.definte("MapTile", {
+  let MapTile = sequelize.define("MapTile", {
     xCoord: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -21,11 +21,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     })
 
-    MapTile.belongsToMany(models.Tile, {
-      foreignKey: {
-        allowNull: false
-      }
-    })
+    MapTile.belongsToMany(models.Tile, {through: 'MapTile_Tile'})
   }
   
   return MapTile;
