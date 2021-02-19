@@ -11,9 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             }
         })
 
-        Map.belongsToMany(models.Environment, {
-            onDelete: "SET NULL"
-        });
+        Map.belongsToMany(models.Environment, {through: 'MapEnvironment'});
 
         Map.hasOne(models.MapTile)
 

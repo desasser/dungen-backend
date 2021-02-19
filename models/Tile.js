@@ -5,9 +5,9 @@ module.exports = function (sequelize, DataTypes) {
 
   Tile.associate = function (models) {
 
-      Tile.belongsToMany(models.MapTile, {
-        onDelete: "SET NULL"
-      });
+      Tile.belongsToMany(models.MapTile, {through: 'MapTile_Tile'});
+
+      Tile.belongsToMany(models.Environment, {through: 'TileEnvironment'});
 
       Tile.hasMany(models.Environment, {
         foreignKey: {
