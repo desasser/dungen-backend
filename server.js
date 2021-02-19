@@ -15,21 +15,21 @@ app.use(express.json({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 require('dotenv').config()
 
-app.use(session({
-  secret: process.env.USER_SECRET,
-  // TODO replace with environment variable for production
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 2
-    //TODO add secure cookie for production
-  }
-}))
+// app.use(session({
+//   secret: process.env.USER_SECRET,
+//   // TODO replace with environment variable for production
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     maxAge: 1000 * 60 * 60 * 2
+//     //TODO add secure cookie for production
+//   }
+// }))
 
-const routes = require("/");
+// const routes = require("/");
 
 
-app.use(routes);
+// app.use(routes);
 
 
 const PORT = process.env.PORT || 3030;
