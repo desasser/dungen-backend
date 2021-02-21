@@ -4,19 +4,20 @@ const router = express.Router();
 
 const db = require("../models");
 
-const axios = require('axios')
+const axios = require('axios');
+const { debugPort } = require("process");
 
 require('dotenv').config()
 
 // =========================================================================
-// Page Routes
+// Landing Page Route
 // =========================================================================
 router.get("/", function (req, res) {
     res.send("Hey there, friend")
 })
 
 // =========================================================================
-// User Account Routes
+// User Account/API Routes
 // =========================================================================
 
 //CREATE new user
@@ -64,6 +65,24 @@ router.get("/api/:userName", function (req, res) {
     })
 })
 
+// **NOT SURE IF THIS put route IS WORKING?**
+//UPDATE user information
+router.put("/updateUser/:userName", function (req, res) {
+    console.log(req.body)
+    db.User.update(req.body,
+        {
+            where: {
+                id: req.params.userName
+            }
+        })
+        .then(updatedUser => {
+            res.json(updatedUser)
+        }).catch(error => {
+            res.status(500).send(error.message)
+        })
+
+})
+
 // =========================================================================
 // User Page Routes
 // =========================================================================
@@ -81,5 +100,27 @@ router.get("/:userName", function (req, res) {
     })
 })
 
+
+// =========================================================================
+// Map API Routes
+// =========================================================================
+
+router.post("/api/newMap", function (req, res) {
+    console.log(req.body)
+    db.Map.create({
+        UserId: req.body.UserId,
+        name: req.body.name,
+        image_url: req.body.image_url
+    }).then(function (data) {
+
+        req.map = {
+            name: req.body.name,
+            image_url: req.body.image_url
+        }
+        res.send(data)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+})
 
 module.exports = router;
