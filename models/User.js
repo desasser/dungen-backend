@@ -6,18 +6,21 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             unique: true,
             allowNull: false
-        },
+          },
         password: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
             validate: {
                 len: [8]
             }
         },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        }
+        name: DataTypes.STRING,
+        public: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+          }
+            
     })
 
     User.associate = function (models) {
@@ -25,4 +28,4 @@ module.exports = function (sequelize, DataTypes) {
     }
 
     return User;
-}
+};
