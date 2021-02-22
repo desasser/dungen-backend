@@ -52,12 +52,18 @@ router.get("/api/users", function (req, res) {
 })
 
 //GET one user
-router.get("/api/:userName", function (req, res) {
+router.get("/api/getuser/:userName", function (req, res) {
     console.log(req.params)
     db.User.findOne({
         where: {
             userName: req.params.userName
-        }
+        },
+        include: [
+            {model: db.Map}
+        ],
+        order: [
+            [db.Map,"createdAt", "DESC"]
+        ]
     }).then(function (singleUser) {
         res.send(singleUser)
     }).catch(error => {
@@ -67,7 +73,7 @@ router.get("/api/:userName", function (req, res) {
 
 // **NOT SURE IF THIS put route IS WORKING?**
 //UPDATE user information
-router.put("/updateUser/:userName", function (req, res) {
+router.put("api/updateUser/:userName", function (req, res) {
     console.log(req.body)
     db.User.update(req.body,
         {
@@ -87,7 +93,7 @@ router.put("/updateUser/:userName", function (req, res) {
 // User Page Routes
 // =========================================================================
 
-router.get("/:userName", function (req, res) {
+router.get("/page/:userName", function (req, res) {
     console.log(req.params)
     db.User.findOne({
         where: {
@@ -105,6 +111,7 @@ router.get("/:userName", function (req, res) {
 // Map API Routes
 // =========================================================================
 
+//CREATING a new map
 router.post("/api/newMap", function (req, res) {
     console.log(req.body)
     db.Map.create({
@@ -118,6 +125,31 @@ router.post("/api/newMap", function (req, res) {
             image_url: req.body.image_url
         }
         res.send(data)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+})
+
+//FINDALL maps
+router.get("/api/getmaps", function (req, res) {
+    console.log(req.body)
+    db.Map.findAll({}).then((maps) => {
+        res.json(maps)
+    }).catch(error => {
+        console.log(error.message);
+        res.status(500).send(error.message)
+    })
+})
+
+//FIND one map
+router.get("/api/map/:name", function (req, res) {
+    console.log(req.params)
+    db.Map.findOne({
+        where: {
+            name: req.params.name
+        }
+    }).then((oneMap) => {
+        res.send(oneMap)
     }).catch(error => {
         res.status(500).send(error.message)
     })
