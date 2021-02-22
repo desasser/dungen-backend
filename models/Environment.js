@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
 
       Environment.belongsToMany(models.Map, {through: 'MapEnvironment'});
 
-      Environment.belongsToMany(models.Tile, {through: 'TileEnvironment'});
+      Environment.hasMany(models.Tile);
 
   };
 
