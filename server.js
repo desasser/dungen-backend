@@ -16,7 +16,7 @@ require('dotenv').config()
 
 // USER AUTHENTICATION GOES HERE
 
-const routes = require("./controller/routes");
+const routes = require("./controllers/routes");
 
 
 app.use(routes);
