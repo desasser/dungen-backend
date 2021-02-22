@@ -16,10 +16,30 @@ require('dotenv').config()
 
 // USER AUTHENTICATION GOES HERE
 
-const routes = require("./controllers/routes");
 
+// User routes
+const userRoutes = require("./controllers/userController.js");
+app.use(userRoutes);
 
-app.use(routes);
+// Environment routes
+const environmentRoutes = require("./controllers/environmentController.js");
+app.use(environmentRoutes);
+
+// Map routes
+const mapRoutes = require("./controllers/mapController.js");
+app.use(mapRoutes);
+
+// Map/Tile routes
+const mapTileRoutes = require("./controllers/mapTileController.js");
+app.use(mapTileRoutes);
+
+// Tile routes
+const tileRoutes = require("./controllers/tileController.js");
+app.use(tileRoutes);
+
+// Frontend routes
+const frontEndRoutes = require("./controllers/frontEndRoutesController.js");
+app.use(frontEndRoutes);
 
 
 const PORT = process.env.PORT || 3030;
