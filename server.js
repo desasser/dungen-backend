@@ -43,7 +43,7 @@ app.use(frontEndRoutes);
 
 
 const PORT = process.env.PORT || 3030;
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {
     console.log(`Ahoy! Welcome aboard the http://localhost:${PORT}`);
   });

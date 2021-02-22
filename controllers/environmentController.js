@@ -8,7 +8,6 @@ const axios = require('axios');
 
 require('dotenv').config()
 
-
 //CREATE new Environment
 router.post("/api/newEnvironment", function (req, res) {
     console.log(req.body)
