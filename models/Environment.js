@@ -5,7 +5,15 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Environment.associate = function (models) {
+<<<<<<< HEAD
     Environment.belongsToMany(models.Tile);
+=======
+
+      Environment.belongsToMany(models.Map, {through: 'MapEnvironment'});
+
+      Environment.hasMany(models.Tile);
+
+>>>>>>> dev
   };
 
   return Environment;
