@@ -15,12 +15,14 @@ module.exports = function (sequelize, DataTypes) {
   }})
 
   MapTile.associate = (models) => {
+    // Each MAPTILE belongs to one MAP
     MapTile.belongsTo(models.Map, {
       foreignKey: {
         allowNull: false
       }
     })
 
+    // EACH MAPTILE belongs to many TILES
     MapTile.belongsToMany(models.Tile, {through: 'MapTile_Tile'})
   }
   
