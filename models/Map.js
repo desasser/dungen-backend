@@ -12,8 +12,8 @@ module.exports = function (sequelize, DataTypes) {
             }
         })
 
-        // Each map has one MAPTILE
-        Map.hasOne(models.MapTile)
+        // Each map has many MAPTILES
+        Map.hasMany(models.MapTile)
     };
 
     return Map;

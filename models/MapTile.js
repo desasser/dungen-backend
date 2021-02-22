@@ -23,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
     })
 
     // EACH MAPTILE belongs to many TILES
-    MapTile.belongsToMany(models.Tile, {through: 'MapTile_Tile'})
+    MapTile.belongsTo(models.Tile)
   }
   
   return MapTile;

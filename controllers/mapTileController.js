@@ -22,7 +22,7 @@ router.get("/api/maptiles", (req, res) => {
 // GET route for a single MAPTILE, will be a subset of the MAPTILE table
 // Finds a MAP, then finds a subset of the MAPTILE table that matches the map fk
 // Finds all tiles from tile fk and appends a column with image URLs
-router.get("/api/maptiles/:id", (req, res) => {
+router.get("/api/maptile/:id", (req, res) => {
   db.Map.findOne({
     where: {
       id: req.params.id
@@ -40,7 +40,7 @@ router.get("/api/maptiles/:id", (req, res) => {
 })
 
 // POST route for new MAPTILE
-router.post("/api/maptiles", (req, res) => {
+router.post("/api/maptile", (req, res) => {
   db.MapTile.create(req.body)
     .then(mapTileData => res.json(mapTileData))
     .catch(err => {
@@ -50,7 +50,7 @@ router.post("/api/maptiles", (req, res) => {
 })
 
 // PUT route for updating a MAPTILE
-router.put("/api/maptiles", (req, res) => {
+router.put("/api/maptile", (req, res) => {
   db.MapTile.update(req.body, {
     where: {
       id: req.body.id
@@ -64,7 +64,7 @@ router.put("/api/maptiles", (req, res) => {
 })
 
 // DELETE route for single MAPTILE
-router.delete("/api/maptiles/:id", (req, res) => {
+router.delete("/api/maptile/:id", (req, res) => {
   db.MapTile.destroy({
     where: {
       id: req.params.id
