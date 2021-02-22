@@ -41,7 +41,6 @@ app.use(tileRoutes);
 const frontEndRoutes = require("./controllers/frontEndController.js");
 app.use(frontEndRoutes);
 
-
 const PORT = process.env.PORT || 3030;
 db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {

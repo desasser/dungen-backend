@@ -9,25 +9,6 @@ const { debugPort } = require("process");
 
 require('dotenv').config()
 
-//CREATING a new map
-router.post("/api/newMap", function (req, res) {
-  console.log(req.body)
-  db.Map.create({
-      UserId: req.body.UserId,
-      name: req.body.name,
-      image_url: req.body.image_url
-  }).then(function (data) {
-
-      req.map = {
-          name: req.body.name,
-          image_url: req.body.image_url
-      }
-      res.send(data)
-  }).catch(error => {
-      res.status(500).send(error.message)
-  })
-})
-
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {
   console.log(req.body)
@@ -48,6 +29,25 @@ router.get("/api/map/:name", function (req, res) {
       }
   }).then((oneMap) => {
       res.send(oneMap)
+  }).catch(error => {
+      res.status(500).send(error.message)
+  })
+})
+
+//CREATING a new map
+router.post("/api/newMap", function (req, res) {
+  console.log(req.body)
+  db.Map.create({
+      UserId: req.body.UserId,
+      name: req.body.name,
+      image_url: req.body.image_url
+  }).then(function (data) {
+
+      req.map = {
+          name: req.body.name,
+          image_url: req.body.image_url
+      }
+      res.send(data)
   }).catch(error => {
       res.status(500).send(error.message)
   })
