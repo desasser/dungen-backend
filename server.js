@@ -38,7 +38,7 @@ const tileRoutes = require("./controllers/tileController.js");
 app.use(tileRoutes);
 
 // Frontend routes
-const frontEndRoutes = require("./controllers/frontEndRoutesController.js");
+const frontEndRoutes = require("./controllers/frontEndController.js");
 app.use(frontEndRoutes);
 
 
