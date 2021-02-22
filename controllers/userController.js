@@ -62,12 +62,12 @@ router.get("/api/getuser/:userName", function (req, res) {
 
 // **NOT SURE IF THIS put route IS WORKING?**
 //UPDATE user information
-router.put("api/updateUser/:userName", function (req, res) {
+router.put("/api/updateUser", function (req, res) {
   console.log(req.body)
   db.User.update(req.body,
       {
           where: {
-              id: req.params.userName
+              id: req.body.id
           }
       })
       .then(updatedUser => {
@@ -78,4 +78,20 @@ router.put("api/updateUser/:userName", function (req, res) {
 
 })
 
+router.delete("/api/deleteUser/:id", function (req, res) {
+    
+    db.User.destroy(
+        {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(deleteUser => {
+            
+            res.json(deleteUser)
+        }).catch(error => {
+            res.status(500).send(error.message)
+        })
+  
+  })
 module.exports = router;

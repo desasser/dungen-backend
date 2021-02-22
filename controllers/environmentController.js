@@ -5,6 +5,7 @@ const router = express.Router();
 const db = require("../models");
 
 const axios = require('axios');
+const { debugPort } = require("process");
 
 require('dotenv').config()
 
@@ -77,5 +78,6 @@ router.delete("/api/deleteEnvironment/:id", function (req, res) {
         res.status(500).send(error.message)
     })
 })
+
 
 module.exports = router;
