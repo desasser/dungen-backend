@@ -16,10 +16,10 @@ require('dotenv').config()
 
 // USER AUTHENTICATION GOES HERE
 
-// const routes = require("/");
+const routes = require("./controller/routes");
 
 
-// app.use(routes);
+app.use(routes);
 
 
 const PORT = process.env.PORT || 3030;
