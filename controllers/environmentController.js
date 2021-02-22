@@ -9,6 +9,7 @@ const { debugPort } = require("process");
 
 require('dotenv').config()
 
+//CREATE new Environment
 router.post("/api/newEnvironment", function (req, res) {
     console.log(req.body)
     db.Environment.create({
