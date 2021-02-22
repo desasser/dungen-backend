@@ -38,12 +38,12 @@ const tileRoutes = require("./controllers/tileController.js");
 app.use(tileRoutes);
 
 // Frontend routes
-const frontEndRoutes = require("./controllers/frontEndRoutesController.js");
+const frontEndRoutes = require("./controllers/frontEndController.js");
 app.use(frontEndRoutes);
 
 
 const PORT = process.env.PORT || 3030;
-db.sequelize.sync({ force: false }).then(function () {
+db.sequelize.sync({ force: true }).then(function () {
   app.listen(PORT, function () {
     console.log(`Ahoy! Welcome aboard the http://localhost:${PORT}`);
   });

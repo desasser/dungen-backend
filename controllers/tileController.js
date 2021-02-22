@@ -16,13 +16,16 @@ router.get("/api/tiles", function (req, res) {
 });
 
 // get all tiles by ENVIRONMENT
-// router.get("/api/tiles/:environmentid", function (req, res) {
-//   db.Tile.findAll({
+router.get("/api/tiles/:environmentid", function (req, res) {
+  db.Tile.findAll({
+    where: { environmentId: req.params.environmentid },
+    include: [ db.Environment ]
+  })
+  .then(function (data) {
+      res.send(data)
+  }).catch(function (error) {
+      res.status(500).json(error)
+  });
+});
 
-//   })
-//   .then(function (data) {
-//       res.send(data)
-//   }).catch(function (error) {
-//       res.status(500).json(error)
-//   });
-// });
+module.exports = router;
