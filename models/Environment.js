@@ -5,11 +5,8 @@ module.exports = function (sequelize, DataTypes) {
   });
 
   Environment.associate = function (models) {
-
-      Environment.belongsToMany(models.Map, {through: 'MapEnvironment'});
-
+    // Environment belongs to many tiles
       Environment.hasMany(models.Tile);
-
   };
 
   return Environment;

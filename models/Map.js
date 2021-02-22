@@ -5,14 +5,20 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Map.associate = function (models) {
+        // Each map belongs to one USER
         Map.belongsTo(models.User, {
             foreignKey: {
                 allownull: false
             }
         })
 
+<<<<<<< HEAD
         Map.hasMany(models.MapTile)
 
+=======
+        // Each map has many MAPTILES
+        Map.hasMany(models.MapTile)
+>>>>>>> dev
     };
 
     return Map;

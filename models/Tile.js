@@ -5,7 +5,7 @@ module.exports = function (sequelize, DataTypes) {
 
   Tile.associate = function (models) {
 
-    Tile.belongsToMany(models.MapTile, { through: 'MapTile_Tile' });
+    Tile.hasMany(models.MapTile);
 
     Tile.belongsTo(models.Environment);
 
