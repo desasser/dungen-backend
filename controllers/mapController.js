@@ -53,4 +53,34 @@ router.post("/api/newMap", function (req, res) {
   })
 })
 
+//UPDATING a Map
+router.put("/api/updateMap", function (req, res) {
+
+    db.Map.update(req.body,
+        {
+            where: {
+                id: req.body.id
+            }
+        })
+        .then(updatedEnvironment => {
+            res.json(updatedEnvironment)
+        }).catch(error => {
+            res.status(500).send(error.message)
+        })
+
+})
+
+//DELETE a map
+router.delete("/api/deleteMap/:id", function (req, res) {
+
+    db.Map.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then((deletedMap) => {
+        res.json(deletedMap)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+})
 module.exports = router;
