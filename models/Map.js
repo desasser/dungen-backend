@@ -12,13 +12,8 @@ module.exports = function (sequelize, DataTypes) {
             }
         })
 
-<<<<<<< HEAD
-        Map.hasMany(models.MapTile)
-
-=======
         // Each map has many MAPTILES
         Map.hasMany(models.MapTile)
->>>>>>> dev
     };
 
     return Map;
