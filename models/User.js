@@ -32,9 +32,9 @@ module.exports = function (sequelize, DataTypes) {
         User.hasMany(models.Map)
     }
 
-    // User.beforeCreate(function (user) {
-    //     user.password = bcrypt.hashSync(user.password, brcypt.genSaltSync(10), null)
-    // })
+     User.beforeCreate(function (user) {
+        user.password = bcrypt.hashSync(user.password, brcypt.genSaltSync(10), null)
+     })
     
     return User;
 };
