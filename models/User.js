@@ -7,6 +7,11 @@ module.exports = function (sequelize, DataTypes) {
             unique: true,
             allowNull: false
           },
+        email: {
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: true
+          },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -27,5 +32,9 @@ module.exports = function (sequelize, DataTypes) {
         User.hasMany(models.Map)
     }
 
+     User.beforeCreate(function (user) {
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null)
+     })
+    
     return User;
 };

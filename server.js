@@ -1,6 +1,6 @@
 const express = require("express");
 const compression = require("compression")
-
+const cors = require("cors");
 const db = require("./models");
 
 const app = express();
@@ -11,6 +11,7 @@ app.use(express.static("public"));
 
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+app.use(cors())
 
 require('dotenv').config()
 
