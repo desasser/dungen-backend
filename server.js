@@ -35,7 +35,7 @@ const mapTileRoutes = require("./controllers/mapTileController.js");
 app.use(mapTileRoutes);
 
 // Tile routes
-const tileRoutes = require("./controllers/tileController.js");
+const tileRoutes = require("./controllers/TileController.js");
 app.use(tileRoutes);
 
 // Frontend routes
