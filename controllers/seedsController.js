@@ -92,163 +92,187 @@ router.post("/api/seed/tiles", function (req, res) {
   db.Tile.bulkCreate([
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave1/100"
+      image_url: "../assets/dungeon/LowRes/2EDC01.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave2/100"
+      image_url: "../assets/dungeon/LowRes/2EDC02.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave3/100"
+      image_url: "../assets/dungeon/LowRes/2EDC03.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave4/100"
+      image_url: "../assets/dungeon/LowRes/2EDC04.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave5/100"
+      image_url: "../assets/dungeon/LowRes/2EDC05.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave6/100"
+      image_url: "../assets/dungeon/LowRes/2EDC06.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave7/100"
+      image_url: "../assets/dungeon/LowRes/2EDC07.jpg"
     },
     {
       EnvironmentId: 1,
-      image_url: "https://picsum.photos/seed/cave8/100"
+      image_url: "../assets/dungeon/LowRes/2EDC08.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon1/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC09.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon2/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC10.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon3/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC11.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon4/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC12.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon5/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC13.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon6/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC14.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon7/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC15.jpg"
     },
     {
-      EnvironmentId: 2,
-      image_url: "https://picsum.photos/seed/dungeon8/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC16.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark1/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC17.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark2/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC18.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark3/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC19.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark4/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC20.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark5/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC21.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark6/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC22.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark7/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC23.jpg"
     },
     {
-      EnvironmentId: 3,
-      image_url: "https://picsum.photos/seed/underdark8/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC24.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest1/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC25.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest2/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC26.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest3/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC27.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest4/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC28.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest5/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC29.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest6/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC30.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest7/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC31.jpg"
     },
     {
-      EnvironmentId: 4,
-      image_url: "https://picsum.photos/seed/forest8/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC32.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship1/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC33.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship2/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC34.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship3/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC35.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship4/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC36.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship5/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC37.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship6/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC38.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship7/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC39.jpg"
     },
     {
-      EnvironmentId: 5,
-      image_url: "https://picsum.photos/seed/ship8/100"
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC40.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC41.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC42.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC43.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC44.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC45.jpg"
+    },
+    {
+      EnvironmentId: 1,
+      image_url: "../assets/dungeon/LowRes/2EDC46.jpg"
     }
   ]).then(seeded => {
     res.json(seeded)
