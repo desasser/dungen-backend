@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
-
+const jwt = require("jsonwebtoken")
 const db = require("../models");
 
 const axios = require('axios');
@@ -37,54 +37,45 @@ const authenticateUser = (req) => {
 
 //CREATE new user
 router.post("/api/newUser", function (req, res) {
-    console.log(req.body)
-    db.User.create(
-        {
-            userName: req.body.userName,
-            email: req.body.email,
-            name: req.body.name,
-            password: req.body.password
-        })
-        .then(function (data) {
-            req.user = {
-                id: data.id,
-                userName: data.userName,
-                name: data.name,
-                email: data.email,
-                password: data.password
-            }
-            res.send(data)
-        }).catch(function (error) {
-            res.status(500).json(error)
-            console.log(error)
-            console.log("sorry, buddy")
-        })
-});
+    db.User.create(req.body).then(newUser => {
+        const token = jwt.sign({
+            userName: newUser.userName,
+            id: newUser.id
+        }, "supersecretpizzaparty",
+            {
+                expiresIn: "24h"
+            })
+        return res.json({ user: newUser, token })
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
 
 //POST for logging in a returning user
 router.post("/login", (req, res) => {
-    
+    console.log(req.body)
     db.User.findOne({
         where: {
             userName: req.body.userName
         }
     }).then(user => {
+        console.log(user)
         if (!user) {
-            return res.status(403).send("sorry. Line 72")
+            return res.status(404).send('no such user')
         }
-        else if (bcrypt.compareSync(req.body.password, user.password)){
+        else if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = jwt.sign({
                 userName: user.userName,
                 id: user.id
-            },"supersecretpizzaparty",
-            {
-                expiiresIn: "24h"
-                //8760 hours in a year
-            })
-            return res.json({user, token})
+            }, "supersecretpizzaparty",
+                {
+                    expiresIn: "24h"
+                })
+            return res.json({ user, token })
         }
         else {
-            return res.status(403).send("sorry. Line 86")
+            return res.status(403).send('wrong password')
         }
     })
 })
