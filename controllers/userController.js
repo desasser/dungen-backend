@@ -13,17 +13,18 @@ require('dotenv').config()
 router.post("/api/newUser", function (req, res) {
   console.log(req.body)
   db.User.create(
-      //{
-    //   userName: req.body.userName,
-    //   name: req.body.name,
-    //   password: req.body.password
-  //} 
-  req.body).then(function (data) {
-
+      {
+      userName: req.body.userName,
+      email: req.body.email,
+      name: req.body.name,
+      password: req.body.password
+  }) 
+ .then(function (data) {
       req.user = {
           id: data.id,
-          name: data.name,
           userName: data.userName,
+          name: data.name,
+          email: data.email,
           password: data.password
       }
       res.send(data)
@@ -31,7 +32,7 @@ router.post("/api/newUser", function (req, res) {
       res.status(500).json(error)
       console.log(error)
       console.log("sorry, buddy")
-  });
+  })
 });
 
 //GET all users
