@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Sequelize = require('sequelize');
-
 const axios = require('axios');
-
 const db = require("../models");
+
+const URL_PREFIX = "http://localhost:3030"
+//When ready, the deployed site will use the following:
+// const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
 function randomStringGenerator() {
   let randomChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -92,187 +94,187 @@ router.post("/api/seed/tiles", function (req, res) {
   db.Tile.bulkCreate([
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC01.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC01.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC02.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC02.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC03.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC03.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC04.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC04.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC05.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC05.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC06.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC06.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC07.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC07.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC08.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC08.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC09.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC09.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC10.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC10.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC11.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC11.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC12.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC12.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC13.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC13.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC14.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC14.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC15.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC15.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC16.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC16.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC17.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC17.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC18.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC18.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC19.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC19.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC20.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC20.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC21.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC21.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC22.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC22.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC23.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC23.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC24.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC24.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC25.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC25.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC26.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC26.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC27.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC27.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC28.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC28.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC29.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC29.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC30.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC30.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC31.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC31.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC32.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC32.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC33.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC33.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC34.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC34.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC35.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC35.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC36.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC36.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC37.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC37.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC38.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC38.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC39.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC39.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC40.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC40.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC41.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC41.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC42.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC42.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC43.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC43.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC44.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC44.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC45.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC45.jpg`
     },
     {
       EnvironmentId: 1,
-      image_url: "../assets/dungeon/LowRes/2EDC46.jpg"
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC46.jpg`
     }
   ]).then(seeded => {
     res.json(seeded)
