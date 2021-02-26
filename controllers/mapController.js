@@ -20,6 +20,8 @@ router.get("/api/getmaps", function (req, res) {
   })
 })
 
+//FINDALL maps for ONE user
+
 //FIND one map
 router.get("/api/map/:name", function (req, res) {
   console.log(req.params)
