@@ -21,7 +21,18 @@ router.get("/api/getmaps", function (req, res) {
 })
 
 //FINDALL maps for ONE user
-
+router.get("/api/usermaps/:userId", function (req, res) {
+    console.log(req.params)
+    db.Map.findAll({
+        where: {
+            userId: req.params.userId
+        }
+    }).then((userMaps) => {
+        res.json(userMaps)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+})
 //FIND one map
 router.get("/api/map/:name", function (req, res) {
   console.log(req.params)
