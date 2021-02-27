@@ -35,6 +35,29 @@ const authenticateUser = (req) => {
     return data
 }
 
+//Authenticate User
+router.get('/auth', (req, res) => {
+
+    let tokenData = authenticateUser(req);
+    if (tokenData) {
+        db.User.findOne({
+            where: {
+                id: tokenData.id
+            },
+            include: [{
+                model: db.Maps
+            }]
+        }).then(user => {
+            res.json(user)
+        }).catch(err => {
+            res.status(500).json(err);
+        })
+    } else {
+        res.status(403).send('auth failed')
+    }
+})
+
+
 //CREATE new user
 router.post("/api/newUser", function (req, res) {
     db.User.create(req.body).then(newUser => {
