@@ -26,8 +26,7 @@ router.get("/api/usermaps/:userId", function (req, res) {
     db.Map.findAll({
         where: {
             userId: req.params.userId
-        },
-        include: [db.MapTiles]
+        }
     }).then((userMaps) => {
         res.json(userMaps)
     }).catch(error => {
