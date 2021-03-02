@@ -36,12 +36,18 @@ router.get("/api/usermaps/:userId", function (req, res) {
   })
 })
 //FIND one map
-router.get("/api/map/:name", function (req, res) {
+router.get("/api/map/:id", function (req, res) {
   console.log(req.params)
   db.Map.findOne({
-    where: {
-      name: req.params.name
-    }
+      where: {
+          id: req.params.id
+      },
+      include: [
+          {
+            model: db.MapTile,
+            include: [db.Tile]
+          }
+      ]
   }).then((oneMap) => {
     res.send(oneMap)
   }).catch(error => {
