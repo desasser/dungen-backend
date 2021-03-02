@@ -81,8 +81,9 @@ router.put("/api/updateMap", function (req, res) {
                 id: req.body.id
             }
         })
-        .then(updatedEnvironment => {
-            res.json(updatedEnvironment)
+        .then(updatedMap => {
+            res.json(updatedMap)
+            
         }).catch(error => {
             res.status(500).send(error.message)
         })
