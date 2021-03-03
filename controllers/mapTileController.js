@@ -76,4 +76,16 @@ router.delete("/api/maptile/:id", (req, res) => {
     });
 });
 
+router.delete("/api/deletemaptilebymap/:mapid", (req, res) => {
+  db.MapTile.destroy({
+    where: {
+      MapId: req.params.mapid
+    }
+  }).then(mapTileData => res.json(mapTileData))
+    .catch(err => {
+      console.log((err.message));
+      res.status(500).send(err.message);
+    });
+});
+
 module.exports = router;

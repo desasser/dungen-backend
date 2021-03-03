@@ -77,17 +77,18 @@ router.post("/api/newMap", function (req, res) {
 //UPDATING a Map
 router.put("/api/updateMap", function (req, res) {
 
-  db.Map.update(req.body,
-    {
-      where: {
-        id: req.body.id
-      }
-    })
-    .then(updatedEnvironment => {
-      res.json(updatedEnvironment)
-    }).catch(error => {
-      res.status(500).send(error.message)
-    })
+    db.Map.update(req.body,
+        {
+            where: {
+                id: req.body.id
+            }
+        })
+        .then(updatedMap => {
+            res.json(updatedMap)
+            
+        }).catch(error => {
+            res.status(500).send(error.message)
+        })
 
 })
 
