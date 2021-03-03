@@ -7,7 +7,9 @@ require('dotenv').config()
 
 // get all tiles
 router.get("/api/tiles", function (req, res) {
-  db.Tile.findAll({})
+  db.Tile.findAll({
+    include: [ db.Environment ]
+  })
   .then(function (data) {
       res.send(data)
   }).catch(function (error) {

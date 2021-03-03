@@ -15,6 +15,9 @@ app.use(cors())
 
 require('dotenv').config()
 
+
+app.use('/assets', express.static(__dirname + '/assets'));
+
 // USER AUTHENTICATION GOES HERE
 
 
