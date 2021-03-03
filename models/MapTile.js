@@ -11,8 +11,12 @@ module.exports = function (sequelize, DataTypes) {
     orientation: {
       type: DataTypes.INTEGER,
       allowNull: false
-    
-  }})
+    },
+    mirror: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
+  })
 
   MapTile.associate = (models) => {
     // Each MAPTILE belongs to one MAP
