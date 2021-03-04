@@ -63,15 +63,18 @@ function imageStitcher(images) {
 
       return (0, _jimp.read)(src).then(function (imgObj) {
         
-        if(rotation !== 0 && rotation !== undefined) {
-          imgObj.rotate(rotation)
+        if(rotation !== undefined && rotation !== 0) {
+          if(rotation === -270) { rotation = 90; }
+          if(rotation === -90) { rotation = 270; }
+          if(rotation === -180) { rotation = 180; }
+          imgObj.rotate(rotation * - 1)
         }
 
-        if(mirrored !== undefined && mirrored === true) {
-          if(rotation === 180 || rotation === 0 || rotation === -180) {
+        if(mirrored !== undefined && mirrored === -1) {
+          if(rotation === 270) {
             imgObj.flip(true, false);
           } else {
-            imgObj.flip(false, true)
+            imgObj.flip(false, true);
           }
         }
         

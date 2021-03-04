@@ -117,17 +117,22 @@ router.get('/api/rendermap/:id', (req,res) => {
   const imageUUID = uuidv4();
 
   // get 10 tiles to test merge-img
-  db.MapTile.findAll({
+  db.Map.findAll({
     where: {
-      MapId: req.params.id
+      id: req.params.id
     },
     order: [
-      ['yCoord', 'ASC'],
-      ['xCoord', 'ASC']
+      [{model: db.MapTile}, 'yCoord', 'ASC'],
+      [{model: db.MapTile}, 'xCoord', 'ASC']
     ],
-    include: [db.Tile]
+    include: {
+      model: db.MapTile,
+      include: [db.Tile]
+    }
   })
-  .then(mapTiles => {
+  .then(mapData => {
+    const mapTiles = mapData[0].MapTiles;
+
     if(mapTiles.length > 0) {
       // res.json(mapTiles);
       // this should come from the table size
@@ -148,7 +153,7 @@ router.get('/api/rendermap/:id', (req,res) => {
 
       // res.json(imgObjArr);
       imageStitcher(imgObjArr).then(img => {
-        img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `./assets/maps/${imageUUID}.png`}) )
+        img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id}) )
       });
 
     } else {
@@ -174,16 +179,27 @@ function getWidth(tiles) {
 }
 
 function buildRow(tiles, gridWidth) {
-  let image_url = `${URL_PREFIX}/assets/blank_tile_199x199.png`;
+  let image_url = `${URL_PREFIX}/assets/blank_tile_199x199_alt.png`;
   let row = [];
+  let offset = 199;
 
   for(var i = 0; i < gridWidth; i++) {
     let tile = {
       src: image_url,
-      offsetY: tiles[0].yCoord * 199,
-      offsetX: i === 0 ? i * 199 : 0,
+      offsetY: tiles[0].yCoord * offset,
+      offsetX: 0,
       rotation: 0,
-      mirrored: false
+      mirrored: 1
+    }
+
+    let foundTile = [...tiles].filter(tile => tile.xCoord === i);
+
+    if(foundTile.length > 0) {
+      // if we find a tile, we can set the image (duh)
+      tile.src = foundTile[0].Tile !== undefined ? foundTile[0].Tile.image_url : image_url;
+      tile.rotation = foundTile[0].orientation !== undefined ? foundTile[0].orientation : 0;
+      tile.mirrored = foundTile[0].mirror !== undefined ? foundTile[0].mirror : 1;
+
     }
 
     if(i === 0 && tiles[0].yCoord > 0) {
@@ -192,19 +208,7 @@ function buildRow(tiles, gridWidth) {
       // AND the found tile *IS* the first one (i === 0),
       // we need to reset the offsetX to the left edge of the grid
       // otherwise, no offset needed (default) -- offset is *from the right edge of the last image*
-      tile.offsetX = (gridWidth * -199);
-    }
-
-    let foundTile = [...tiles].filter(tile => tile.xCoord === i);
-
-    if(foundTile.length > 0) {
-      // if we find a tile, we can set the image (duh)
-      tile.src = foundTile[0].Tile !== undefined ? foundTile[0].Tile.image_url : `${URL_PREFIX}/assets/blank_tile.png`;
-      tile.rotation = foundTile[0].orientation !== undefined ? foundTile[0].orientation : 0;
-      
-      if(foundTile[0].mirror !== undefined) {
-        tile.mirrored = foundTile[0].mirror === 1 ? false : true;
-      }
+      tile.offsetX = gridWidth * (offset * -1) - 2;
     }
   
     row.push(tile);
