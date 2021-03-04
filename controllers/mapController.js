@@ -116,7 +116,6 @@ router.delete("/api/deleteMap/:id", function (req, res) {
 router.get('/api/rendermap/:id', (req,res) => {
   const imageUUID = uuidv4();
 
-  // get 10 tiles to test merge-img
   db.Map.findAll({
     where: {
       id: req.params.id
@@ -131,37 +130,42 @@ router.get('/api/rendermap/:id', (req,res) => {
     }
   })
   .then(mapData => {
-    console.log(mapData[0].MapTiles);
-    const mapTiles = mapData[0].MapTiles;
+    // res.json(mapData);
+    if(mapData[0].image_url === "" || mapData[0].image_url === null) {
+      console.log(mapData[0].MapTiles);
+      const mapTiles = mapData[0].MapTiles;
 
-    if(mapTiles.length > 0) {
-      // res.json(mapTiles);
-      // this should come from the table size
-      const gridDimensions = getGridWidthHeight(mapTiles);
-      // res.json(mapTiles);
-      // const rowTiles = [...mapTiles].filter(tile => tile.yCoord === 0);
+      if(mapTiles.length > 0) {
+        // res.json(mapTiles);
+        // this should come from the table size
+        const gridDimensions = getGridWidthHeight(mapTiles);
+        // res.json(mapTiles);
+        // const rowTiles = [...mapTiles].filter(tile => tile.yCoord === 0);
 
-      let imgObjArr = [];
-      for(var i = 0; i < gridDimensions.height; i++) {
-        const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
-        // console.log(rowTiles);
+        let imgObjArr = [];
+        for(var i = 0; i < gridDimensions.height; i++) {
+          const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
+          // console.log(rowTiles);
 
-        if(rowTiles.length !== 0) {
-          const row = buildRow(rowTiles, gridDimensions.width);
-          imgObjArr.push(...row);
+          if(rowTiles.length !== 0) {
+            const row = buildRow(rowTiles, gridDimensions.width);
+            imgObjArr.push(...row);
+          }
         }
+        // res.json(imgObjArr);
+        imageStitcher(imgObjArr).then(img => {
+          img.write( `./assets/maps/${imageUUID}.png`, () => {
+            console.log(`${URL_PREFIX}/assets/maps/${imageUUID}.png`);
+            res.json({image_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id})
+          })
+        });
+
+      } else {
+        res.json({image_url: null, mapTitle: "", mapId: null});
+
       }
-      // res.json(imgObjArr);
-      imageStitcher(imgObjArr).then(img => {
-        img.write( `./assets/maps/${imageUUID}.png`, () => {
-          console.log(`${URL_PREFIX}/assets/maps/${imageUUID}.png`);
-          res.json({img_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id})
-        })
-      });
-
     } else {
-      res.json({img_url: null, mapTitle: "", mapId: null});
-
+      res.json({image_url: mapData[0].image_url, mapTitle: mapData[0].name, mapId: mapData[0].id})
     }
   })
   .catch(err => console.error(err));
