@@ -13,7 +13,7 @@ const e = require("express");
 
 require('dotenv').config()
 
-//const URL_PREFIX = "http://localhost:3030"
+// const URL_PREFIX = "http://localhost:3030"
 //When ready, the deployed site will use the following:
 const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
@@ -131,6 +131,7 @@ router.get('/api/rendermap/:id', (req,res) => {
     }
   })
   .then(mapData => {
+    console.log(mapData[0].MapTiles);
     const mapTiles = mapData[0].MapTiles;
 
     if(mapTiles.length > 0) {
@@ -150,14 +151,16 @@ router.get('/api/rendermap/:id', (req,res) => {
           imgObjArr.push(...row);
         }
       }
-
       // res.json(imgObjArr);
       imageStitcher(imgObjArr).then(img => {
-        img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id}) )
+        img.write( `./assets/maps/${imageUUID}.png`, () => {
+          console.log(`${URL_PREFIX}/assets/maps/${imageUUID}.png`);
+          res.json({img_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id})
+        })
       });
 
     } else {
-      res.json({img_url: null});
+      res.json({img_url: null, mapTitle: "", mapId: null});
 
     }
   })
@@ -208,7 +211,7 @@ function buildRow(tiles, gridWidth) {
       // AND the found tile *IS* the first one (i === 0),
       // we need to reset the offsetX to the left edge of the grid
       // otherwise, no offset needed (default) -- offset is *from the right edge of the last image*
-      tile.offsetX = gridWidth * (offset * -1) - 2;
+      tile.offsetX = gridWidth * (offset * -1);
     }
   
     row.push(tile);
