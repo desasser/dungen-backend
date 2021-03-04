@@ -1,14 +1,21 @@
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
-const mergeImg = require("merge-img")
+// const mergeImg = require("merge-img")
+const imageStitcher = require("../utils/image-stitcher/index.js")
 const db = require("../models");
+
+const { v4: uuidv4 } = require('uuid');
 
 const axios = require('axios');
 const { debugPort } = require("process");
 const e = require("express");
 
 require('dotenv').config()
+
+//const URL_PREFIX = "http://localhost:3030"
+//When ready, the deployed site will use the following:
+const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {
@@ -106,62 +113,108 @@ router.delete("/api/deleteMap/:id", function (req, res) {
   })
 })
 
-router.post('/api/savemap', (req,res) => {
-  db.Tile.findAll().then(data => {
-    const imgObjArr = [{
-      src: data[0].image_url,
-      offsetX: 0,
-      offsetY: 0
-    },
-    {
-      src: data[1].image_url,
-      offsetX: 0,
-      offsetY: 0
-    },
-    {
-      src: data[2].image_url,
-      offsetX: -398,
-      offsetY: 199
-    },
-    {
-      src: data[3].image_url,
-      offsetX: 0,
-      offsetY: 199
-    }
-  ]
-    
-    mergeImg(imgObjArr).then(img => {
-      img.write('./assets/maps/outputgrid.png', ()=> console.log('done'))
-    })
+router.get('/api/rendermap/:id', (req,res) => {
+  const imageUUID = uuidv4();
 
-    // TODO: take in values from local storage
-    // TODO: confirm this syntax positions things properly
-    // let newRow = 0;
-    // // this should come from the table size
-    // const gridWidth = data.width;
-    // const imgObjArr = data.map(e => {
-    //   imgObjArr.src = e.image_url
-    //   if (newRow !== e.positionY) {
-    //     // if the newRow variable does not equal the y-position of the current element
-    //     // then the current element is on the next row
-    //     // set the first element in the row back to the start
-    //     // multiply -199 by the number of elements in the row
-    //     imgObjArr.offsetX = gridWidth * -199;
-    //   } else {
-    //     // if the newRow variable equals the y-position of the current element
-    //     // then the current element is on the same row as the last element
-    //     imgObjArr.offsetX = e.positionX*0;
-    //   }
-    //   imgObjArr.offsetY = e.positionY*199;
-    //   newRow = e.positionY
-    // });
-    // console.log(imageUrlArr);
-    // mergeImg(imgObjArr).then(img => {
-    //   img.write('./assets/maps/outputAll.png', ()=> console.log('done'))
-    // })
-    user_number
-    res.json(data)
+  // get 10 tiles to test merge-img
+  db.Map.findAll({
+    where: {
+      id: req.params.id
+    },
+    order: [
+      [{model: db.MapTile}, 'yCoord', 'ASC'],
+      [{model: db.MapTile}, 'xCoord', 'ASC']
+    ],
+    include: {
+      model: db.MapTile,
+      include: [db.Tile]
+    }
   })
-})
+  .then(mapData => {
+    const mapTiles = mapData[0].MapTiles;
+
+    if(mapTiles.length > 0) {
+      // res.json(mapTiles);
+      // this should come from the table size
+      const gridDimensions = getGridWidthHeight(mapTiles);
+      // res.json(mapTiles);
+      // const rowTiles = [...mapTiles].filter(tile => tile.yCoord === 0);
+
+      let imgObjArr = [];
+      for(var i = 0; i < gridDimensions.height; i++) {
+        const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
+        // console.log(rowTiles);
+
+        if(rowTiles.length !== 0) {
+          const row = buildRow(rowTiles, gridDimensions.width);
+          imgObjArr.push(...row);
+        }
+      }
+
+      // res.json(imgObjArr);
+      imageStitcher(imgObjArr).then(img => {
+        img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id}) )
+      });
+
+    } else {
+      res.json({img_url: null});
+
+    }
+  })
+  .catch(err => console.error(err));
+});
+
+function getGridWidthHeight(tiles) {
+  // get width from established function
+  // height is the value of the last y coordinate (offsets are from top left corner of images)
+  return { width: getWidth(tiles) + 2, height: tiles[tiles.length - 1].yCoord + 2 }
+}
+
+function getWidth(tiles) {
+  // sort the tiles by yCoord, high to low to get gridWidth
+  let sortedTiles = [...tiles].sort((a,b) => a.xCoord < b.xCoord ? 1 : -1);
+
+  // return sortedTiles[0].xCoord - sortedTiles[sortedTiles.length - 1].xCoord;
+  return sortedTiles[0].xCoord;
+}
+
+function buildRow(tiles, gridWidth) {
+  let image_url = `${URL_PREFIX}/assets/blank_tile_199x199_alt.png`;
+  let row = [];
+  let offset = 199;
+
+  for(var i = 0; i < gridWidth; i++) {
+    let tile = {
+      src: image_url,
+      offsetY: tiles[0].yCoord * offset,
+      offsetX: 0,
+      rotation: 0,
+      mirrored: 1
+    }
+
+    let foundTile = [...tiles].filter(tile => tile.xCoord === i);
+
+    if(foundTile.length > 0) {
+      // if we find a tile, we can set the image (duh)
+      tile.src = foundTile[0].Tile !== undefined ? foundTile[0].Tile.image_url : image_url;
+      tile.rotation = foundTile[0].orientation !== undefined ? foundTile[0].orientation : 0;
+      tile.mirrored = foundTile[0].mirror !== undefined ? foundTile[0].mirror : 1;
+
+    }
+
+    if(i === 0 && tiles[0].yCoord > 0) {
+      // console.log(tiles[0].yCoord);
+      // if we are NOT on the first row (y > 0)
+      // AND the found tile *IS* the first one (i === 0),
+      // we need to reset the offsetX to the left edge of the grid
+      // otherwise, no offset needed (default) -- offset is *from the right edge of the last image*
+      tile.offsetX = gridWidth * (offset * -1) - 2;
+    }
+  
+    row.push(tile);
+  }
+
+  return row;
+}
 
 module.exports = router;
