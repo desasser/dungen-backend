@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
-const mergeImg = require("merge-img")
+// const mergeImg = require("merge-img")
+const imageStitcher = require("../utils/image-stitcher/index.js")
 const db = require("../models");
 
 const { v4: uuidv4 } = require('uuid');
@@ -146,7 +147,7 @@ router.get('/api/rendermap/:id', (req,res) => {
       }
 
       // res.json(imgObjArr);
-      mergeImg(imgObjArr).then(img => {
+      imageStitcher(imgObjArr).then(img => {
         img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `./assets/maps/${imageUUID}.png`}) )
       });
 
