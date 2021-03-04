@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             unique: true,
-            allowNull: true
+            allowNull: false
           },
         password: {
             type: DataTypes.STRING,
@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
         name: DataTypes.STRING,
         public: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
+            allowNull: true,
             defaultValue: false
           }
             
