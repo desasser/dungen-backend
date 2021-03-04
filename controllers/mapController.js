@@ -139,16 +139,20 @@ router.get('/api/rendermap/:id', (req,res) => {
         const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
         // console.log(rowTiles);
 
-        const row = buildRow(rowTiles, gridDimensions.width);
-        imgObjArr.push(...row);
+        if(rowTiles.length !== 0) {
+          const row = buildRow(rowTiles, gridDimensions.width);
+          imgObjArr.push(...row);
+        }
       }
 
       // res.json(imgObjArr);
       mergeImg(imgObjArr).then(img => {
         img.write( `./assets/maps/${imageUUID}.png`, () => res.json({img_url: `./assets/maps/${imageUUID}.png`}) )
       });
+
     } else {
       res.json({img_url: null});
+
     }
   })
   .catch(err => console.error(err));
@@ -157,21 +161,16 @@ router.get('/api/rendermap/:id', (req,res) => {
 function getGridWidthHeight(tiles) {
   // get width from established function
   // height is the value of the last y coordinate (offsets are from top left corner of images)
-  return { width: getWidth(tiles), height: tiles[tiles.length - 1].yCoord }
+  return { width: getWidth(tiles) + 2, height: tiles[tiles.length - 1].yCoord + 2 }
 }
 
 function getWidth(tiles) {
   // sort the tiles by yCoord, high to low to get gridWidth
   let sortedTiles = [...tiles].sort((a,b) => a.xCoord < b.xCoord ? 1 : -1);
 
-  return sortedTiles[0].xCoord - sortedTiles[sortedTiles.length - 1].xCoord;
+  // return sortedTiles[0].xCoord - sortedTiles[sortedTiles.length - 1].xCoord;
+  return sortedTiles[0].xCoord;
 }
-
-// function getRowWidth(tiles, yCoord) {
-//   let row = [...tiles].filter(tile => tile.yCoord === yCoord);
-
-//   return getWidth(row);
-// }
 
 function buildRow(tiles, gridWidth) {
   let image_url = `${URL_PREFIX}/assets/blank_tile_199x199.png`;
