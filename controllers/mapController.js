@@ -32,7 +32,7 @@ router.get("/api/usermaps/:userId", function (req, res) {
   console.log(req.params)
   db.Map.findAll({
     where: {
-      userId: req.params.userId
+      UserId: req.params.userId
     },
     include: [db.MapTile]
   }).then((userMaps) => {
