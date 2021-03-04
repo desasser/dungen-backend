@@ -71,11 +71,12 @@ function imageStitcher(images) {
         }
 
         if(mirrored !== undefined && mirrored === -1) {
-          if(rotation === 270) {
-            imgObj.flip(true, false);
-          } else {
-            imgObj.flip(false, true);
-          }
+          imgObj.flip(true, false);
+          // if(rotation === 270) {
+          //   imgObj.flip(true, false);
+          // } else {
+          //   imgObj.flip(false, true);
+          // }
         }
         
         return {
