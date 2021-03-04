@@ -4,9 +4,9 @@ const Sequelize = require('sequelize');
 const axios = require('axios');
 const db = require("../models");
 
-const URL_PREFIX = "http://localhost:3030"
+// const URL_PREFIX = "http://localhost:3030"
 //When ready, the deployed site will use the following:
-// const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
+const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
 function randomStringGenerator() {
   let randomChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -63,25 +63,21 @@ router.post("/api/seed/users", function (req, res) {
 router.post("/api/seed/environments", function (req, res) {
   db.Environment.bulkCreate([
     {
-      name: "cave",
+      name: "Dungeon",
       thumbnail_url: "https://images.unsplash.com/photo-1585194328937-30ffb4529e8f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
     },
     {
-      name: "dungeon",
+      name: "Dwarven Tomb",
       thumbnail_url: "https://images.unsplash.com/photo-1599792350110-b2bf0b45e0d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1269&q=80"
     },
     {
-      name: "underdark",
+      name: "Forgotten Temple",
       thumbnail_url: "https://images.unsplash.com/photo-1521898369703-1646a1850bea?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
     },
     {
-      name: "forest",
+      name: "Wizard Workshop",
       thumbnail_url: "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
     },
-    {
-      name: "ship",
-      thumbnail_url: "https://images.unsplash.com/photo-1534447677768-be436bb09401?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1371&q=80"
-    }
   ]).then(seeded => {
     res.json(seeded)
   }).catch(function (error) {
