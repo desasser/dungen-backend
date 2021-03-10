@@ -1,7 +1,12 @@
 module.exports = function (sequelize, DataTypes) {
     var Map = sequelize.define("Map", {
         name: DataTypes.STRING,
-        image_url: DataTypes.STRING
+        image_url: DataTypes.STRING,
+        public: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+            defaultValue: false
+          }
     });
 
     Map.associate = function (models) {
