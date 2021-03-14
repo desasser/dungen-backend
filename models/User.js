@@ -29,7 +29,8 @@ module.exports = function (sequelize, DataTypes) {
     })
 
     User.associate = function (models) {
-        User.hasMany(models.Map)
+        User.hasMany(models.Map);
+        User.belongsToMany(models.User, { as: 'Follower', through: 'UserFollower' });
     }
 
      User.beforeCreate(function (user) {
