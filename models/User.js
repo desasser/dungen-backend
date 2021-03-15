@@ -30,6 +30,8 @@ module.exports = function (sequelize, DataTypes) {
 
     User.associate = function (models) {
         User.hasMany(models.Map);
+
+        // self referencing many-to-many association in tables
         User.belongsToMany(models.User, { as: 'Follower', through: 'UserFollower' });
     }
 

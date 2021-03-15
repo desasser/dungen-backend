@@ -153,6 +153,26 @@ router.get("/api/getuser/:userName", function (req, res) {
     })
 })
 
+//UPDATE user connections, follow or unfollow a user
+//TODO: Need to add route protection
+//TODO: currently takes in two user IDs in the body
+router.put("/api/follow", (req,res) => {
+  //on button click
+  //find logged in user
+  db.User.findOne({
+    where: {
+      id: req.body.userId //logged in user
+    }
+  }).then(dbUser => {
+    //add connection between the logged in user and the target to be followed
+    dbUser.addFollower(req.body.followerId);
+    res.json(dbUser)
+  }).catch(err => {
+    console.log(err.message);
+    res.status(500).send(err.message);
+  })
+})
+
 //UPDATE user information
 router.put("/api/updateUser", function (req, res) {
     console.log(req.body)
@@ -170,6 +190,7 @@ router.put("/api/updateUser", function (req, res) {
 
 })
 
+//DELETE user
 router.delete("/api/deleteUser/:id", function (req, res) {
 
     db.User.destroy(
