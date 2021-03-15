@@ -22,10 +22,55 @@ router.post("/api/newEncounter", function (req, res) {
 });
 
 //Get Equiptment from 5eAPI
-router.get('/api/equiptment/:index', function (req,res){
+router.get('/api/equiptment/:index', function (req, res) {
     axios.get(`${dndapi}/equiptment/${req.params.index}`).then(function (item) {
         res.json(item)
     }).catch(error => {
         res.status(500).send(error.message)
     })
-})
+});
+
+//Get Magic Items from 5eAPI
+router.get('/api/magic-items/:index', function (req, res) {
+    axios.get(`${dndapi}/magic-items/${req.params.index}`).then(function (item) {
+        res.json(item)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+});
+
+//Get monsters from 5eAPI
+router.get('/api/spells/:index', function (req, res) {
+    axios.get(`${dndapi}/spells/${req.params.index}`).then(function (item) {
+        res.json(item)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+});
+
+//Get Monster by Name from 5eAPI
+router.get('/api/monsters/:index', function (req, res) {
+    axios.get(`${dndapi}/monsters/${req.params.index}`).then(function (item) {
+        res.json(item)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+});
+
+//Get Monster by CR from 5eAPI
+router.get('/api/monsters/:cr', function (req, res) {
+    axios.get(`${dndapi}/monsters?challenge_rating=${req.params.cr}`).then(function (item) {
+        res.json(item)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+});
+
+//Get Conditions from 5eAPI
+router.get('/api/conditions/:index', function (req, res) {
+    axios.get(`${dndapi}/conditions/${req.params.index}`).then(function (item) {
+        res.json(item)
+    }).catch(error => {
+        res.status(500).send(error.message)
+    })
+});
