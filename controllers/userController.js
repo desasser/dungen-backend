@@ -173,6 +173,24 @@ router.put("/api/follow", (req,res) => {
   })
 })
 
+//TODO: Need to add route protection
+//TODO: currently takes in user ID and map ID in the body
+//POST route to add favorited map to FAVORITES
+router.post("/api/favorite", (req,res) => {
+  db.User.findOne({
+    where: {
+      id: req.body.userId //logged in user
+    }
+  }).then(dbUser => {
+    dbUser.addFavorite(req.body.favoriteId); //favoriteId is a mapId
+    res.json(dbUser)
+  }).catch( err => {
+    console.log(err.message);
+    res.status(500).send(err.message);
+  })
+})
+
+
 //UPDATE user information
 router.put("/api/updateUser", function (req, res) {
     console.log(req.body)
