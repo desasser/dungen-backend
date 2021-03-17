@@ -2,8 +2,17 @@ module.exports = function (sequelize, DataTypes) {
     var Map = sequelize.define("Map", {
         name: DataTypes.STRING,
         image_url: DataTypes.STRING,
-        row: DataTypes.NUMBER,
-        column: DataTypes.NUMBER,
+        environment: DataTypes.STRING,
+        row: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultVaule: null
+        },
+        column: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultVaule: null
+        },
         public: {
             type: DataTypes.BOOLEAN,
             allowNull: true,

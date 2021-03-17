@@ -58,7 +58,7 @@ router.post("/api/seed/users", function (req, res) {
     res.status(500).json(error)
   });
 });
-
+ 
 //CREATE new environments
 router.post("/api/seed/environments", function (req, res) {
   db.Environment.bulkCreate([
