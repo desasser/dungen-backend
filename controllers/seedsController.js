@@ -27,30 +27,35 @@ router.post("/api/seed/users", function (req, res) {
       userName: "whiterabbit",
       password: "MadBunnies!",
       name: "Leora Harlyn",
+      email: 'joe1@joe.joe',
       public: true
     },
     {
       userName: "madscientist",
       password: "AllTheZoTs!",
       name: "Hella Margrave",
+      email: 'joe2@joe.joe',
       public: true
     },
     {
       userName: "monstros",
       password: "BleedMeDry",
       name: "F. Valentine",
+      email: 'joe3@joe.joe',
       public: true
     },
     {
       userName: "firebird",
       password: "RiseFromTheAshes",
       name: "Phoenix Maudlin",
+      email: 'joe4@joe.joe',
       public: true
     },
     {
       userName: "storm",
       password: "OutOfMyWay",
       name: "Adelaide Stormvahl",
+      email: 'joe5@joe.joe',
       public: true
     }
   ]).then(seeded => {
