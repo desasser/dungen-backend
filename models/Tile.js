@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
 
     Tile.hasMany(models.MapTile);
 
-    Tile.belongsTo(models.Environment);
+    Tile.belongsTo(models.TileSet);
 
   };
 
