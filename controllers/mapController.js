@@ -13,7 +13,7 @@ const e = require("express");
 
 require('dotenv').config()
 
- const URL_PREFIX = "http://localhost:3030"
+ const URL_PREFIX = process.env.URL_PREFIX
 //When ready, the deployed site will use the following:
 //const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 

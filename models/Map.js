@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: true,
             defaultValue: false
-          }
+        }
     });
 
     Map.associate = function (models) {
@@ -27,6 +27,7 @@ module.exports = function (sequelize, DataTypes) {
                 allownull: false
             }
         })
+        Map.belongsTo(models.Environment)
 
         // Each map has many MAPTILES
         Map.hasMany(models.MapTile)

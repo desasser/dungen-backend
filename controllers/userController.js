@@ -28,7 +28,7 @@ const authenticateUser = (req) => {
     let data = false;
     if (token) {
         console.log("line 30. Maybe this is working")
-        data = jwt.verify(token, "supersecretpizzaparty", (error, data) => {
+        data = jwt.verify(token, process.env.token, (error, data) => {
             if (error) {
                 console.log(error)
                 return false;
