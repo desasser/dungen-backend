@@ -31,6 +31,9 @@ module.exports = function (sequelize, DataTypes) {
 
         // Each map has many MAPTILES
         Map.hasMany(models.MapTile)
+
+        // favorites table
+        Map.belongsToMany(models.User, { as: 'Favorite', through: 'Favorites' })
     };
 
     return Map;
