@@ -13,6 +13,11 @@ const e = require("express");
 
 require('dotenv').config()
 
+const URL_PREFIX = process.env.URL_PREFIX
+//When ready, the deployed site will use the following:
+// const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
+
+
 const authenticateUser = (req) => {
   console.log(`authenticating the following token on line 13 ${req}`)
   let token = false;
@@ -49,9 +54,6 @@ const authenticateUser = (req) => {
   return data
 }
 
-const URL_PREFIX = "http://localhost:3030"
-//When ready, the deployed site will use the following:
-// const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {
@@ -105,7 +107,11 @@ router.post("/api/newMap", function (req, res) {
   db.Map.create({
     UserId: req.body.UserId,
     name: req.body.name,
-    image_url: req.body.image_url
+    image_url: req.body.image_url,
+    environment: req.body.environment,
+    row: req.body.row,
+    column: req.body.column,
+    public: req.body.public
   }).then(function (data) {
 
     req.map = {
