@@ -20,6 +20,18 @@ function randomStringGenerator() {
   return seed;
 }
 
+const donjon = "https://donjon.bin.sh/5e/random/rpc-5e.fcgi?type=Encounter";
+router.get("/api/encounter/donjon/:playernum/:playerlvl/:difficulty/:environment/:loottype/:n", function(req, res) {
+  console.log(req.params);
+
+  axios.get(`${donjon}&n_pc=${req.params.playernum}&level=${req.params.playerlvl}&difficulty=${req.params.difficulty}&environment=${req.params.environment}&loot_type=${req.params.loottype}&n=${req.params.n}`)
+  .then(data => {
+    console.log(data.data);
+    res.send(data.data)
+  })
+  .catch(err => res.send(err))
+});
+
 //CREATE new user
 router.post("/api/seed/users", function (req, res) {
   db.User.bulkCreate([

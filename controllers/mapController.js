@@ -51,10 +51,6 @@ const authenticateUser = (req) => {
   return data
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {
   console.log(req.body)
