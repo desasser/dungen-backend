@@ -25,6 +25,10 @@ app.use('/assets', express.static(__dirname + '/assets'));
 const userRoutes = require("./controllers/userController.js");
 app.use(userRoutes);
 
+// TileSet routes
+const tileSetRoutes = require("./controllers/tileSetController.js");
+app.use(tileSetRoutes);
+
 // Environment routes
 const environmentRoutes = require("./controllers/environmentController.js");
 app.use(environmentRoutes);
