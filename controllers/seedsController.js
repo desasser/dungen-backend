@@ -579,55 +579,55 @@ router.post("/api/seed/tiles/wizard-workshop", function (req, res) {
   db.Tile.bulkCreate([
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.png`
     },
     {
       EnvironmentId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.png`
     }
   ]).then(seeded => {
     res.json(seeded)
