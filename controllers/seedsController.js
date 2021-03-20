@@ -617,55 +617,55 @@ router.post("/api/seed/tiles/wizard-workshop", function (req, res) {
   db.Tile.bulkCreate([
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.png`
     }
   ]).then(seeded => {
     res.json(seeded)

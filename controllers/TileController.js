@@ -8,7 +8,7 @@ require('dotenv').config()
 // get all tiles
 router.get("/api/tiles", function (req, res) {
   db.Tile.findAll({
-    include: [ db.Environment ]
+    include: [ db.TileSet ]
   })
   .then(function (data) {
       res.send(data)
@@ -17,11 +17,11 @@ router.get("/api/tiles", function (req, res) {
   });
 });
 
-// get all tiles by ENVIRONMENT
-router.get("/api/tiles/:environmentid", function (req, res) {
+// get all tiles by TileSet
+router.get("/api/tiles/:tilesetid", function (req, res) {
   db.Tile.findAll({
-    where: { environmentId: req.params.environmentid },
-    include: [ db.Environment ]
+    where: { tilesetId: req.params.tilesetid },
+    include: [ db.TileSet ]
   })
   .then(function (data) {
       res.send(data)
