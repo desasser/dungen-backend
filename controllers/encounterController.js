@@ -2,25 +2,25 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const axios = require('axios');
-// const dndapi = "https://www.dnd5eapi.co/api/"
 const donjon = "https://donjon.bin.sh/5e/random/rpc-5e.fcgi?type=Encounter";
+// const dndapi = "https://www.dnd5eapi.co/api/"
 
-//CREATE new Encounter
-router.post("/api/newEncounter", function (req, res) {
-    console.log(req.body)
-    db.Encounter.create({
-        type: req.body.type,
-        name: req.body.name,
-        cr: req.body.cr,
-        dc: req.body.dc,
-        description: req.body.description
-    }).then(function (data) {
-        console.log(data)
-        res.json(data)
-    }).catch(function (error) {
-        res.status(500).json(error)
-    });
-});
+// //CREATE new Encounter
+// router.post("/api/newEncounter", function (req, res) {
+//     console.log(req.body)
+//     db.Encounter.create({
+//         type: req.body.type,
+//         name: req.body.name,
+//         cr: req.body.cr,
+//         dc: req.body.dc,
+//         description: req.body.description
+//     }).then(function (data) {
+//         console.log(data)
+//         res.json(data)
+//     }).catch(function (error) {
+//         res.status(500).json(error)
+//     });
+// });
 //---------------------------------------------------------------------------------
 // //Get Equiptment from 5eAPI
 // router.get('/api/equiptment/:index', function (req, res) {
@@ -92,9 +92,14 @@ router.get("/api/encounter/donjon/:playernum/:playerlvl/:difficulty/:environment
 
 //Get random treasure hoard based on CR from donjon
 router.get('/api/donjon/treasure/:type/:cr', function (req, res) {
-    axios.get(`${donjon}type=Treasure+${req.params.type}&cr=${req.params.cr}&n=1`)
-}).then(function (result) {
-    res.send(result)
-}).catch(error => {
-    res.status(404).send(error.message)
+
+    axios.get(`${donjon}type=Treasure+${req.params.type}&cr=${req.params.cr}&n=1`
+    ).then(data => {
+        res.send(data.data)
+    }).catch(error => {
+        res.status(404).send(error.message)
+    })
 })
+
+
+module.exports = router;
