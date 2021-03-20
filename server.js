@@ -53,6 +53,10 @@ app.use(frontEndRoutes);
 const seedsRoutes = require("./controllers/seedsController.js");
 app.use(seedsRoutes);
 
+// Encounter routes
+const encounterRoutes = require("./controllers/encounterController.js");
+app.use(encounterRoutes);
+
 const PORT = process.env.PORT || 3030;
 db.sequelize.sync({ force: false }).then(function () {
   app.listen(PORT, function () {
