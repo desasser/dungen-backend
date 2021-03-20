@@ -17,10 +17,10 @@ router.get("/api/tiles", function (req, res) {
   });
 });
 
-// get all tiles by TileSet
-router.get("/api/tiles/:tilesetid", function (req, res) {
+// get all tiles by TILE-SET
+router.get("/api/tiles/:tileSetId", function (req, res) {
   db.Tile.findAll({
-    where: { tilesetId: req.params.tilesetid },
+    where: { TileSetId: req.params.tileSetId },
     include: [ db.TileSet ]
   })
   .then(function (data) {
@@ -35,7 +35,7 @@ router.post("/api/tile", function (req, res) {
   console.log(req.body)
   db.Tile.create({
       image_url: req.body.image_url,
-      EnvironmentId: req.body.environmentId
+      TileSetId: req.body.tileSetId
   }).then(function (data) {
       console.log(data)
       res.json(data)
