@@ -14,9 +14,6 @@ const e = require("express");
 require('dotenv').config()
 
 const URL_PREFIX = process.env.URL_PREFIX
-//When ready, the deployed site will use the following:
-// const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
-
 
 const authenticateUser = (req) => {
   console.log(`authenticating the following token on line 13 ${req}`)
@@ -53,7 +50,6 @@ const authenticateUser = (req) => {
   console.log(data)
   return data
 }
-
 
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {

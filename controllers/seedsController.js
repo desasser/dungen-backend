@@ -4,7 +4,8 @@ const Sequelize = require('sequelize');
 const axios = require('axios');
 const db = require("../models");
 
-const URL_PREFIX = "http://localhost:3030"
+const URL_PREFIX = process.env.URL_PREFIX
+// const URL_PREFIX = "http://localhost:3030"
 //When ready, the deployed site will use the following:
 // const URL_PREFIX = "https://quiet-caverns-20153.herokuapp.com"
 
@@ -18,6 +19,18 @@ function randomStringGenerator() {
 
   return seed;
 }
+
+const donjon = "https://donjon.bin.sh/5e/random/rpc-5e.fcgi?type=Encounter";
+router.get("/api/encounter/donjon/:playernum/:playerlvl/:difficulty/:environment/:loottype/:n", function(req, res) {
+  console.log(req.params);
+
+  axios.get(`${donjon}&n_pc=${req.params.playernum}&level=${req.params.playerlvl}&difficulty=${req.params.difficulty}&environment=${req.params.environment}&loot_type=${req.params.loottype}&n=${req.params.n}`)
+  .then(data => {
+    console.log(data.data);
+    res.send(data.data)
+  })
+  .catch(err => res.send(err))
+});
 
 //CREATE new user
 router.post("/api/seed/users", function (req, res) {
@@ -68,21 +81,81 @@ router.post("/api/seed/users", function (req, res) {
 router.post("/api/seed/environments", function (req, res) {
   db.Environment.bulkCreate([
     {
-      name: "Cave",
-      thumbnail_url: "https://images.unsplash.com/photo-1585194328937-30ffb4529e8f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+      name: "Arctic",
+      thumbnail_url: ""
     },
     {
-      name: "Lavafield",
-      thumbnail_url: "https://images.unsplash.com/photo-1599792350110-b2bf0b45e0d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1269&q=80"
+      name: "Coastal",
+      thumbnail_url: ""
+    },
+    {
+      name: "Desert",
+      thumbnail_url: ""
     },
     {
       name: "Forest",
-      thumbnail_url: "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
+      thumbnail_url: ""
     },
     {
-      name: "Lava Forest",
-      thumbnail_url: "https://images.unsplash.com/photo-1521898369703-1646a1850bea?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      name: "Grassland",
+      thumbnail_url: "",
     },
+    {
+      name: "Hill",
+      thumbnail_url: "",
+    },
+    {
+      name: "Jungle",
+      thumbnail_url: "",
+    },
+    {
+      name: "Mountain",
+      thumbnail_url: "",
+    },
+    {
+      name: "Swamp",
+      thumbnail_url: "",
+    },
+    {
+      name: "Underdark",
+      thumbnail_url: "",
+    },
+    {
+      name: "Underwater",
+      thumbnail_url: "",
+    },
+    {
+      name: "Urban",
+      thumbnail_url: "",
+    },
+    {
+      name: "Celestial Plane",
+      thumbnail_url: "",
+    },
+    {
+      name: "Abyssal Plane",
+      thumbnail_url: "",
+    },
+    {
+      name: "Infernal Plane",
+      thumbnail_url: "",
+    },
+    {
+      name: "Elemental Air",
+      thumbnail_url: "",
+    },
+    {
+      name: "Elemental Earth",
+      thumbnail_url: "",
+    },
+    {
+      name: "Elemental Fire",
+      thumbnail_url: "",
+    },
+    {
+      name: "Elemental Water",
+      thumbnail_url: "",
+    }
   ]).then(seeded => {
     res.json(seeded)
   }).catch(function (error) {
@@ -116,193 +189,192 @@ router.post("/api/seed/tileSets", function (req, res) {
   });
 });
 
-
 //CREATE new tiles
 router.post("/api/seed/tiles/dungeon", function (req, res) {
   db.Tile.bulkCreate([
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC01.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC01.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC02.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC02.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC03.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC03.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC04.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC04.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC05.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC05.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC06.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC06.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC07.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC07.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC08.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC08.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC09.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC09.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC10.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC10.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC11.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC11.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC12.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC12.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC13.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC13.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC14.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC14.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC15.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC15.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC16.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC16.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC17.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC17.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC18.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC18.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC19.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC19.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC20.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC20.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC21.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC21.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC22.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC22.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC23.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC23.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC24.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC24.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC25.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC25.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC26.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC26.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC27.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC27.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC28.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC28.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC29.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC29.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC30.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC30.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC31.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC31.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC32.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC32.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC33.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC33.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC34.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC34.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC35.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC35.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC36.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC36.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC37.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC37.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC38.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC38.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC39.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC39.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC40.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC40.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC41.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC41.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC42.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC42.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC43.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC43.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC44.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC44.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC45.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC45.png`
     },
     {
       TileSetId: 1,
-      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC46.jpg`
+      image_url: `${URL_PREFIX}/assets/dungeon/LowRes/2EDC46.png`
     }
   ]).then(seeded => {
     res.json(seeded)
@@ -315,179 +387,179 @@ router.post("/api/seed/tiles/dwarven-tomb", function (req, res) {
   db.Tile.bulkCreate([
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT01.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT01.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT02.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT02.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT03.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT03.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT04.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT04.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT05.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT05.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT06.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT06.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT07.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT07.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT08.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT08.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT09.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT09.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT10.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT10.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT11.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT11.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT12.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT12.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT13.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT13.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT14.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT14.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT15.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT15.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT16.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT16.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT17.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT17.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT18.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT18.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT19.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT19.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT20.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT20.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT21.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT21.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT22.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT22.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT23.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT23.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT24.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT24.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT25.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT25.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT26.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT26.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT27.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT27.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT28.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT28.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT29.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT29.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT30.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT30.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT31.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT31.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT32.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT32.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT33.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT33.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT34.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT34.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT35.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT35.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT36.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT36.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT37.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT37.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT38.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT38.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT39.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT39.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT40.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT40.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT41.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT41.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT42.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT42.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT43.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT43.png`
     },
     {
       TileSetId: 2,
-      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT44.jpg`
+      image_url: `${URL_PREFIX}/assets/dwarven_tomb/LowRes/2EDwT44.png`
     }
   ]).then(seeded => {
     res.json(seeded)
@@ -500,99 +572,99 @@ router.post("/api/seed/tiles/forgotten-temple", function (req, res) {
   db.Tile.bulkCreate([
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT01.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT01.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT02.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT02.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT03.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT03.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT04.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT04.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT05.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT05.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT06.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT06.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT07.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT07.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT08.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT08.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT09.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT09.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT10.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT10.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT11.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT11.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT12.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT12.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT13.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT13.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT14.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT14.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT15.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT15.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT16.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT16.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT17.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT17.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT18.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT18.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT19.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT19.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT20.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT20.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT21.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT21.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT22.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT22.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT23.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT23.png`
     },
     {
       TileSetId: 3,
-      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT24.jpg`
+      image_url: `${URL_PREFIX}/assets/forgotten_temple/LowRes/2EFoT24.png`
     }
   ]).then(seeded => {
     res.json(seeded)
@@ -605,55 +677,55 @@ router.post("/api/seed/tiles/wizard-workshop", function (req, res) {
   db.Tile.bulkCreate([
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0301.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0302.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0303.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0304.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0305.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0306.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0307.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0308.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0309.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0310.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0311.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0312.png`
     },
     {
       TileSetId: 4,
-      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.jpg`
+      image_url: `${URL_PREFIX}/assets/wizard_workshop/LowRes/2EDX0313.png`
     }
   ]).then(seeded => {
     res.json(seeded)
