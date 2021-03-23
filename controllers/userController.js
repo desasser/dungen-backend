@@ -38,6 +38,18 @@ const authenticateUser = (req) => {
         return data
       }
     })
+  } else if (req.body.token) {
+    console.log("line 42. This is a possibility...")
+    data = jwt.verify(req.body.token, process.env.token, (error, data) => {
+      if (error) {
+        console.log(error)
+        return false;
+      }
+      else {
+        console.log("success, I guess...")
+        return data
+      }
+    })
   }
   console.log("returning on line 43...")
   console.log(data)
@@ -153,17 +165,13 @@ router.get("/api/getuser/:userName", function (req, res) {
   })
 })
 
-//UPDATE user connections, follow or unfollow a user
+//UPDATE user connections, follow a user
 //Takes in two user IDs in the body
 router.put("/api/follow", (req, res) => {
   //on button click
   //find logged in user
-  let userData = authenticateUser(req);
-  if (userData) {
-    //check the userData against the userId
-    //if they match, then the follow event occurs
-    //if they don't match, then reject
-    // if (userId === userData.user.id)
+  let tokenData = authenticateUser(req);
+  if (tokenData) {
     db.User.findOne({
       where: {
         id: req.body.followerId //logged in user
@@ -176,16 +184,61 @@ router.put("/api/follow", (req, res) => {
       console.log(err.message);
       res.status(500).send(err.message);
     })
-  } else {
+  }
+  else {
     res.status(403).send('You must be logged in to follow another map maker')
   }
 })
 
-//POST route to add favorited map to FAVORITES
+//UPDATE user connections, unfollow a user
 //Takes in two user IDs in the body
-router.post("/api/favorite", (req, res) => {
-  let userData = authenticateUser(req);
-  if (userData) {
+router.delete("/api/unfollow", (req, res) => {
+  //on button click
+  //find logged in user
+  let tokenData = authenticateUser(req);
+  if (tokenData) {
+    db.User.findOne({
+      where: {
+        id: req.body.followerId //logged in user
+      }
+    }).then(dbUser => {
+      //remove connection between the logged in user and the target to be followed
+      dbUser.removeFollower(req.body.userId);
+      res.json(dbUser)
+    }).catch(err => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    })
+  }
+  else {
+    res.status(403).send('You must be logged in to unfollow another map maker')
+  }
+})
+
+//GET route for all users that the logged in user follows
+router.get('/api/follows/:id', (req, res) => {
+  db.User.findAll({
+    // where: {
+    //   id: req.params.id
+    // },
+    include: [{
+      model: db.User,
+      as: 'Follower'
+    }]
+  }).then(dbUser => {
+    res.json(dbUser);
+  }).catch(err => {
+    console.log(err.message);
+    res.status(500).send(err.message);
+  })
+})
+
+
+//PUT route to add favorited map to FAVORITES
+//Takes in two user IDs in the body
+router.put("/api/favorite", (req, res) => {
+  // let userData = authenticateUser(req);
+  // if (userData) {
     db.User.findOne({
       where: {
         id: req.body.userId //logged in user
@@ -197,9 +250,30 @@ router.post("/api/favorite", (req, res) => {
       console.log(err.message);
       res.status(500).send(err.message);
     })
-  } else {
-    res.status(403).send('You must be logged in to favorite a map')
-  }
+  // } else {
+  //   res.status(403).send('You must be logged in to favorite a map')
+  // }
+})
+
+//DELETE route to remove favorited map from FAVORITES
+//Takes in two user IDs in the body
+router.delete("/api/unfavorite", (req, res) => {
+  // let userData = authenticateUser(req);
+  // if (userData) {
+    db.User.findOne({
+      where: {
+        id: req.body.userId //logged in user
+      }
+    }).then(dbUser => {
+      dbUser.removeFavorite(req.body.favoriteId); //favoriteId is a mapId
+      res.json(dbUser)
+    }).catch(err => {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    })
+  // } else {
+  //   res.status(403).send('You must be logged in to unfavorite a map')
+  // }
 })
 
 
@@ -244,7 +318,7 @@ router.delete("/api/deleteUser/:id", function (req, res) {
         }).catch(error => {
           res.status(500).send(error.message)
         })
-    }else {
+    } else {
       res.status(403).send('You do not want to delete this user')
     }
   })
