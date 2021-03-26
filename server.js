@@ -25,6 +25,10 @@ app.use('/assets', express.static(__dirname + '/assets'));
 const userRoutes = require("./controllers/userController.js");
 app.use(userRoutes);
 
+// TileSet routes
+const tileSetRoutes = require("./controllers/tileSetController.js");
+app.use(tileSetRoutes);
+
 // Environment routes
 const environmentRoutes = require("./controllers/environmentController.js");
 app.use(environmentRoutes);
@@ -48,6 +52,10 @@ app.use(frontEndRoutes);
 // Seeds routes
 const seedsRoutes = require("./controllers/seedsController.js");
 app.use(seedsRoutes);
+
+// Encounter routes
+const encounterRoutes = require("./controllers/encounterController.js");
+app.use(encounterRoutes);
 
 const PORT = process.env.PORT || 3030;
 db.sequelize.sync({ force: false }).then(function () {
