@@ -100,13 +100,14 @@ router.get("/api/map/:id", function (req, res) {
 //CREATING a new map
 router.post("/api/newMap", function (req, res) {
   console.log(req.body)
+   
   db.Map.create({
     UserId: req.body.UserId,
     name: req.body.name,
     image_url: req.body.image_url,
-    environment: req.body.environment,
-    row: req.body.row,
-    column: req.body.column,
+    EnvironmentId: req.body.EnvironmentId,
+    rows: req.body.rows,
+    columns: req.body.columns,
     public: req.body.public
   }).then(function (data) {
 

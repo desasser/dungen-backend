@@ -2,13 +2,13 @@ module.exports = function (sequelize, DataTypes) {
     var Map = sequelize.define("Map", {
         name: DataTypes.STRING,
         image_url: DataTypes.STRING,
-        environment: DataTypes.STRING,
-        row: {
+        environment: DataTypes.INTEGER,
+        rows: {
             type: DataTypes.INTEGER,
             allowNull: true,
             defaultVaule: null
         },
-        column: {
+        columns: {
             type: DataTypes.INTEGER,
             allowNull: true,
             defaultVaule: null
