@@ -99,22 +99,25 @@ router.get("/api/map/:id", function (req, res) {
 
 //CREATING a new map
 router.post("/api/newMap", function (req, res) {
-  console.log(req.body)
+  // console.log(req.body)
+   
   db.Map.create({
     UserId: req.body.UserId,
     name: req.body.name,
     image_url: req.body.image_url,
-    environment: req.body.environment,
-    row: req.body.row,
-    column: req.body.column,
+    EnvironmentId: req.body.EnvironmentId,
+    rows: req.body.rows,
+    columns: req.body.columns,
     public: req.body.public
   }).then(function (data) {
 
-    req.map = {
-      name: req.body.name,
-      image_url: req.body.image_url
-    }
+    // req.map = {
+    //   name: req.body.name,
+    //   image_url: req.body.image_url
+    // }
+
     res.send(data)
+    
   }).catch(error => {
     res.status(500).send(error.message)
   })
@@ -161,60 +164,68 @@ router.delete("/api/deleteMap/:id", function (req, res) {
 })
 
 router.get('/api/rendermap/:id', (req, res) => {
-  const imageUUID = uuidv4();
-  db.Map.findAll({
-    where: {
-      id: req.params.id
-    },
-    order: [
-      [{ model: db.MapTile }, 'yCoord', 'ASC'],
-      [{ model: db.MapTile }, 'xCoord', 'ASC']
-    ],
-    include: {
-      model: db.MapTile,
-      include: [db.Tile]
-    }
+  db.Map.findOne({
+    where: { id: req.params.id }
   })
-    .then(mapData => {
-      // res.json(mapData);
-      if (mapData[0].image_url === "" || mapData[0].image_url === null) {
-        console.log(mapData[0].MapTiles);
-        const mapTiles = mapData[0].MapTiles;
+  .then(mapData => {
+    res.json(mapData);
+  })
+  .catch(err => console.error(err));
 
-        if (mapTiles.length > 0) {
-          // res.json(mapTiles);
-          // this should come from the table size
-          const gridDimensions = getGridWidthHeight(mapTiles);
-          // res.json(mapTiles);
-          // const rowTiles = [...mapTiles].filter(tile => tile.yCoord === 0);
+  // const imageUUID = uuidv4();
+  // db.Map.findAll({
+  //   where: {
+  //     id: req.params.id
+  //   },
+  //   order: [
+  //     [{ model: db.MapTile }, 'y', 'ASC'],
+  //     [{ model: db.MapTile }, 'x', 'ASC']
+  //   ],
+  //   include: {
+  //     model: db.MapTile,
+  //     include: [db.Tile]
+  //   }
+  // })
+  //   .then(mapData => {
+  //     // res.json(mapData);
+  //     if (mapData[0].image_url === "" || mapData[0].image_url === null) {
+  //       console.log(mapData[0].MapTiles);
+  //       const mapTiles = mapData[0].MapTiles;
 
-          let imgObjArr = [];
-          for (var i = 0; i < gridDimensions.height; i++) {
-            const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
-            // console.log(rowTiles);
+  //       if (mapTiles.length > 0) {
+  //         // res.json(mapTiles);
+  //         // this should come from the table size
+  //         const gridDimensions = getGridWidthHeight(mapTiles);
+  //         // res.json(mapTiles);
+  //         // const rowTiles = [...mapTiles].filter(tile => tile.yCoord === 0);
 
-            if (rowTiles.length !== 0) {
-              const row = buildRow(rowTiles, gridDimensions.width);
-              imgObjArr.push(...row);
-            }
-          }
-          // res.json(imgObjArr);
-          imageStitcher(imgObjArr).then(img => {
-            img.write(`./assets/maps/${imageUUID}.png`, () => {
-              console.log(`${URL_PREFIX}/assets/maps/${imageUUID}.png`);
-              res.json({ image_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id })
-            })
-          });
+  //         let imgObjArr = [];
+  //         for (var i = 0; i < gridDimensions.height; i++) {
+  //           const rowTiles = [...mapTiles].filter(tile => tile.yCoord === i);
+  //           // console.log(rowTiles);
 
-        } else {
-          res.json({ image_url: null, mapTitle: "", mapId: null });
+  //           if (rowTiles.length !== 0) {
+  //             const row = buildRow(rowTiles, gridDimensions.width);
+  //             imgObjArr.push(...row);
+  //           }
+  //         }
+  //         // res.json(imgObjArr);
+  //         imageStitcher(imgObjArr).then(img => {
+  //           img.write(`./assets/maps/${imageUUID}.png`, () => {
+  //             console.log(`${URL_PREFIX}/assets/maps/${imageUUID}.png`);
+  //             res.json({ image_url: `${URL_PREFIX}/assets/maps/${imageUUID}.png`, mapTitle: mapData[0].name, mapId: mapData[0].id })
+  //           })
+  //         });
 
-        }
-      } else {
-        res.json({ image_url: mapData[0].image_url, mapTitle: mapData[0].name, mapId: mapData[0].id })
-      }
-    })
-    .catch(err => console.error(err));
+  //       } else {
+  //         res.json({ image_url: null, mapTitle: "", mapId: null });
+
+  //       }
+  //     } else {
+  //       res.json({ image_url: mapData[0].image_url, mapTitle: mapData[0].name, mapId: mapData[0].id })
+  //     }
+  //   })
+  //   .catch(err => console.error(err));
 });
 
 function getGridWidthHeight(tiles) {
