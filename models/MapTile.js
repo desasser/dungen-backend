@@ -1,19 +1,19 @@
 module.exports = function (sequelize, DataTypes) {
   let MapTile = sequelize.define("MapTile", {
-    xCoord: {
+    x: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    yCoord: {
+    y: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    orientation: {
+    rotation: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
     mirror: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     }
   })

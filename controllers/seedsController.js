@@ -734,6 +734,21 @@ router.post("/api/seed/tiles/wizard-workshop", function (req, res) {
   });
 });
 
+//SEED encounter types
+router.post('/api/seed/encountertypes', function(req, res) {
+  db.EncounterType.bulkCreate([
+    { type: "Environmental" },
+    { type: "Combat" },
+    { type: "Trap" },
+    { type: "Social" },
+    { type: "Other" }
+  ]).then(seeded => {
+    res.json(seeded)
+  }).catch(function (error) {
+    res.status(500).json(error)
+  });
+});
+
 //CREATE new maps
 router.post("/api/seed/maps", function (req, res) {
   db.Map.bulkCreate([
