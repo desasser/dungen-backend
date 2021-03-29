@@ -1,17 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
     var Map = sequelize.define("Map", {
         name: DataTypes.STRING,
-        image_url: DataTypes.STRING,
+        image_url: {
+            type: DataTypes.TEXT('long'),
+
+        },
         environment: DataTypes.INTEGER,
         rows: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultVaule: null
+            defaultValue: null
         },
         columns: {
             type: DataTypes.INTEGER,
             allowNull: true,
-            defaultVaule: null
+            defaultValue: null
         },
         public: {
             type: DataTypes.BOOLEAN,
@@ -24,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
         // Each map belongs to one USER
         Map.belongsTo(models.User, {
             foreignKey: {
-                allownull: false
+                allowNull: false
             }
         })
         Map.belongsTo(models.Environment)
