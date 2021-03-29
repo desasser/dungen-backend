@@ -54,7 +54,20 @@ const authenticateUser = (req) => {
 //FINDALL maps
 router.get("/api/getmaps", function (req, res) {
   console.log(req.body)
-  db.Map.findAll({}).then((maps) => {
+  db.Map.findAll({
+    where: {
+      public: true
+    },
+    include: [
+      {
+        model: db.User,
+        as: 'Favorite'
+      },
+      {
+        model: db.User
+      }
+    ]
+  }).then((maps) => {
     res.json(maps)
   }).catch(error => {
     console.log(error.message);
@@ -88,6 +101,10 @@ router.get("/api/map/:id", function (req, res) {
       {
         model: db.MapTile,
         include: [db.Tile]
+      },
+      {
+        model: db.User,
+        as: 'Favorite'
       }
     ]
   }).then((oneMap) => {
