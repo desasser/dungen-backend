@@ -1,6 +1,9 @@
 module.exports = function (sequelize, DataTypes) {
     var Map = sequelize.define("Map", {
-        name: DataTypes.STRING,
+        name: {
+          type: DataTypes.STRING,
+          defaultValue: `Cheese Monkey's Hovel`
+        },
         image_url: {
             type: DataTypes.TEXT('long'),
 
