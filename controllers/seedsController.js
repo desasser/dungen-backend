@@ -755,27 +755,32 @@ router.post("/api/seed/maps", function (req, res) {
     { // underdark
       name: "Rambo's Throne of Darkness",
       image_url: "https://picsum.photos/seed/rambo/200",
-      UserId: 3
+      UserId: 3,
+      public: true,
     },
     { // dungeon
       name: "Crypt of the Frozen Morass",
       image_url: "https://picsum.photos/seed/crypt/200",
-      UserId: 5
+      UserId: 5,
+      public: true,
     },
     { // cave
       name: "la Ceverne Emeraude",
       image_url: "https://picsum.photos/seed/emerald/200",
-      UserId: 2
+      UserId: 2,
+      public: true,
     },
     { // forest
       name: "Golden Snail Wood: Special Grove",
       image_url: "https://picsum.photos/seed/snail/200",
-      UserId: 4
+      UserId: 4,
+      public: true,
     },
     { // ship
       name: "Boaty McBoatFace",
       image_url: "https://picsum.photos/seed/boaty/200",
-      UserId: 1
+      UserId: 1,
+      public: true,
     }
   ]).then(seeded => {
     res.json(seeded)
